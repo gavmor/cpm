@@ -1,6 +1,6 @@
 import { Command } from "commander";
-import { add } from "./add";
-import { install } from "./install";
+import { add } from "./src/add";
+import { install } from "./src/install";
 
 const program = new Command()
 
