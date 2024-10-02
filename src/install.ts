@@ -2,8 +2,8 @@ import { readFileSync } from "fs";
 import { test, expect, is, equals } from "@benchristel/taste"
 
 
-export function install({ packageFile }) {
-    console.log("Installing: " + JSON.stringify(constructInstallationPlan(pluckDeps(packageFile))));
+export async function install({ packageFile }) {
+    constructInstallationPlan(pluckDeps(packageFile))
 }
 
 type Herd = Record<string, Version>;
@@ -19,21 +19,25 @@ function pluckDeps(packageFilePath: string): Herd {
         .dependencies;
 }
 
-function constructInstallationPlan(
+async function constructInstallationPlan(
     topLevelDependencies: Herd
-): InstallationPlan {
+): Promise<InstallationPlan> {
     return Object
        .entries(topLevelDependencies)
        .map(([name, version]) => ({
             name, 
-            version
+            version,
+            parentDirectory:  "node_modules"
         }));
 }
 
 test("constructInstallationPlan", {
-    "given a herd, returns a plan"() {
-        expect(constructInstallationPlan({ 
+    async "by default, assigns dependencies to node_modules"() {
+        expect(await constructInstallationPlan({ 
             "foo": "1.2.3", "bar": "1.0.1",
-        }), equals, [{ name: "foo", version:"1.2.3"}, {name: "bar", version:"1.0.1"}]);
+        }), equals, [
+            { name: "foo", version:"1.2.3", parentDirectory:"node_modules"},
+            { name: "bar", version:"1.0.1", parentDirectory:"node_modules"}
+        ]);
     },
 })
