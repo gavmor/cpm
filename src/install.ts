@@ -1,5 +1,5 @@
 import { readFileSync } from "fs";
-import { test, expect, is, equals } from "@benchristel/taste"
+import { test, expect, equals } from "@benchristel/taste"
 
 export async function install({ packageFile }) {
     constructInstallationPlan(readDeps(packageFile))
@@ -18,17 +18,17 @@ function readDeps(packageFilePath: string): Herd {
 }
 
 type Herd = Record<string, Version>;
-const explodeInstallation = async (memo: InstallationPlan, i: DependencyInstallation): Promise<InstallationPlan> => {
+const spreadInstallation = async (memo: InstallationPlan, i: DependencyInstallation): Promise<InstallationPlan> => {
     const response = await fetch(registryPath("@benchristel/taste", "0.6.0"));
     const { dependencies }: { dependencies: Herd } = await response.json()
-    return planetize(dependencies)
+    return [...memo, ...planetize(dependencies)]
 };
 
 test("descendPlan", {
     async "fetches the dependencies of a dependency installation, and merges them into a plan"() {
         stubFetch()
 
-        expect(await explodeInstallation([], { name: "qux", version: "0.4.2" }), equals, [{
+        expect(await spreadInstallation([], { name: "qux", version: "0.4.2" }), equals, [{
             name: "child",
             version: "1.0.1",
             parentDirectory: "node_modules"
@@ -40,7 +40,7 @@ async function constructInstallationPlan(
     topLevelDependencies: Herd
 ): Promise<InstallationPlan> {
     const currentPlan = planetize(topLevelDependencies);
-    return currentPlan.reduce<InstallationPlan>(explodeInstallation, currentPlan)
+    return currentPlan.reduce<InstallationPlan>(spreadInstallation, currentPlan)
 
     // return await currentPlan.reduce(async (plan, {name, version}) => {
     //     JSON.stringify(await fetch(registryPath(name, version)))
@@ -50,7 +50,7 @@ async function constructInstallationPlan(
 
 test("constructInstallationPlan", {
     async "by default, assigns dependencies to node_modules"() {
-        stubFetch();
+        stubFetch({dependencies: {} as Herd});
 
         expect(await constructInstallationPlan({
             "foo": "1.2.3", "bar": "1.0.1",
@@ -59,16 +59,16 @@ test("constructInstallationPlan", {
             { name: "bar", version: "1.0.1", parentDirectory: "node_modules" }
         ]);
     },
-    // async "given a depency with dependencies, adds their deps to the plan"() {
-    //     stubFetch();
+    async "given a depency with dependencies, adds their deps to the plan"() {
+        stubFetch();
 
-    //     expect(await constructInstallationPlan({
-    //         "parent": "1.2.3",
-    //     }), equals, [
-    //         { name: "parent", version: "1.2.3", parentDirectory: "node_modules" },
-    //         { name: "child", version: "1.0.1", parentDirectory: "node_modules" }
-    //     ]);
-    // },
+        expect(await constructInstallationPlan({
+            "parent": "1.2.3",
+        }), equals, [
+            { name: "parent", version: "1.2.3", parentDirectory: "node_modules" },
+            { name: "child", version: "1.0.1", parentDirectory: "node_modules" }
+        ]);
+    },
 })
 
 function planetize(topLevelDependencies: Herd): InstallationPlan {
