@@ -14,6 +14,8 @@
     "commander": "^12.1.0"
   },
   "devDependencies": {
-    "@types/node": "^22.7.4"
+    "@benchristel/taste": "^0.6.0",
+    "@types/node": "^22.7.4",
+    "@types/semver": "^7.5.8"
   }
 }

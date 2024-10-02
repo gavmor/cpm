@@ -12,14 +12,26 @@ importers:
         specifier: ^12.1.0
         version: 12.1.0
     devDependencies:
+      '@benchristel/taste':
+        specifier: ^0.6.0
+        version: 0.6.0
       '@types/node':
         specifier: ^22.7.4
         version: 22.7.4
+      '@types/semver':
+        specifier: ^7.5.8
+        version: 7.5.8
 
 packages:
 
+  '@benchristel/taste@0.6.0':
+    resolution: {integrity: sha512-+PNsgwYRKgZQLCUGFCGLRbPTIpJYsyhMr5935ZjEdWlAjm6N0aj0jd80uGqNSgLJOhlmGCQhrZyzhPfXHJTBwg==}
+
   '@types/node@22.7.4':
     resolution: {integrity: sha512-y+NPi1rFzDs1NdQHHToqeiX2TIS79SWEAw9GYhkkx8bD0ChpfqC+n2j5OXOCpzfojBEBt6DnEnnG9MY0zk1XLg==}
+
+  '@types/semver@7.5.8':
+    resolution: {integrity: sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==}
 
   commander@12.1.0:
     resolution: {integrity: sha512-Vw8qHK3bZM9y/P10u3Vib8o/DdkvA2OtPtZvD871QKjy74Wj1WSKFILMPRPSdUSx5RFK1arlJzEtA4PkFgnbuA==}
@@ -30,9 +42,13 @@ packages:
 
 snapshots:
 
+  '@benchristel/taste@0.6.0': {}
+
   '@types/node@22.7.4':
     dependencies:
       undici-types: 6.19.8
+
+  '@types/semver@7.5.8': {}
 
   commander@12.1.0: {}
 
