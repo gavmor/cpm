@@ -4,7 +4,7 @@ Custom Package Manager
 
 ## Usage
 
-### `add`
+### `$ cpm add`
 
 Given a package name, installs the package to `node_modules`, and  adds it as a dev dependency to your `package.json`.
 
@@ -12,7 +12,7 @@ Given a package name, installs the package to `node_modules`, and  adds it as a 
 cpm add <package> [version] [--dev]
 ```
 
-### `install`
+### `$ cpm install`
 
 Installs all packages in `package.json`, and their entire tree of dependencies.
 
@@ -22,10 +22,10 @@ cpm install
 
 ## Development
 
-### `test`
+### `$ pnpm test`
 
 Runs the `@benchristel/taste` tests.
 
-### `build` 
+### `$ pnpm build` 
 
 Compiles the project into an executable.
