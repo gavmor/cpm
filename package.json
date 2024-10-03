@@ -18,6 +18,7 @@
   "devDependencies": {
     "@benchristel/taste": "^0.6.0",
     "@types/node": "^22.7.4",
-    "@types/semver": "^7.5.8"
+    "@types/semver": "^7.5.8",
+    "bun": "^1.1.29"
   }
 }

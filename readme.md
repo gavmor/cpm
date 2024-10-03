@@ -19,3 +19,13 @@ Installs all packages in `package.json`, and their entire tree of dependencies.
 ```BASH
 cpm install
 ```
+
+## Development
+
+### `test`
+
+Runs the `@benchristel/taste` tests.
+
+### compile 
+
+Compiles the project using `bun`.
