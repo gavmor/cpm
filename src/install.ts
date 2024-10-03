@@ -5,7 +5,7 @@ export async function install({ packageFile }) {
     constructInstallationPlan(readDeps(packageFile))
 }
 
-function readDeps(packageFilePath: string): Hegird {
+function readDeps(packageFilePath: string): Herd {
     return JSON.parse(readFileSync(packageFilePath, { encoding: 'utf-8' }))
         .dependencies;
 }
