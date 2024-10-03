@@ -112,10 +112,3 @@ test("fetchChildren", {
         fetchStub.restore();
     }
 })
-
-export function stubFetch(json?) {
-    // @ts-expect-error
-    global.fetch = (input, init) => new Promise(resolve => resolve(new Response(JSON.stringify(json || {
-        dependencies: { "child": "1.0.1" }
-    }))));
-}
