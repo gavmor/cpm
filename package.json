@@ -11,7 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "commander": "^12.1.0"
+    "@types/sinon": "^17.0.3",
+    "commander": "^12.1.0",
+    "sinon": "^19.0.2"
   },
   "devDependencies": {
     "@benchristel/taste": "^0.6.0",
