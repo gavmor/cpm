@@ -26,6 +26,6 @@ cpm install
 
 Runs the `@benchristel/taste` tests.
 
-### compile 
+### `build` 
 
-Compiles the project using `bun`.
+Compiles the project into an executable.
